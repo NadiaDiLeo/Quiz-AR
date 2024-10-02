@@ -1,0 +1,232 @@
+<!DOCTYPE html><html lang="it"><head><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://code.jquery.com https://unpkg.com https://d3js.org https://threejs.org https://cdn.plot.ly https://stackpath.bootstrapcdn.com https://maps.googleapis.com https://cdn.tailwindcss.com https://ajax.googleapis.com https://kit.fontawesome.com https://cdn.datatables.net https://maxcdn.bootstrapcdn.com https://code.highcharts.com https://tako-static-assets-production.s3.amazonaws.com https://www.youtube.com https://fonts.googleapis.com https://fonts.gstatic.com https://pfst.cf2.poecdn.net https://i.imgur.com https://wikimedia.org https://*.icons8.com https://*.giphy.com https://picsum.photos https://images.unsplash.com; frame-src 'self' https://www.youtube.com https://trytako.com; child-src 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests; block-all-mixed-content;">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VR/AR nella Pedagogia Speciale - Demo Interattiva Avanzata</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f8ff;
+            color: #333;
+        }
+        h1, h2 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        #scena {
+            width: 100%;
+            height: 500px;
+            background-color: #e6f3ff;
+            border: 3px solid #3498db;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        .oggetto {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        .oggetto:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+        }
+        #info {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #ffffff;
+            border: 2px solid #3498db;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+        #contatore, #livello {
+            text-align: right;
+            font-style: italic;
+            margin-top: 10px;
+        }
+        #quiz {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #e8f6f3;
+            border: 2px solid #1abc9c;
+            border-radius: 10px;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        #quizButton {
+            display: block;
+            margin: 20px auto;
+        }
+        .corretta {
+            background-color: #2ecc71 !important;
+        }
+        .sbagliata {
+            background-color: #e74c3c !important;
+        }
+        #feedback {
+            text-align: center;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>VR/AR nella Pedagogia Speciale</h1>
+    <p>Esplora questa demo interattiva di Realtà Aumentata per studenti con bisogni speciali. Interagisci con gli oggetti per scoprire le loro applicazioni nell'educazione speciale e completa i quiz per avanzare di livello!</p>
+    <div id="scena">
+        <div class="oggetto" style="top: 50px; left: 50px; background-color: #3498db;" data-info="Il libro interattivo in AR può aiutare gli studenti con difficoltà di lettura, fornendo supporto audio e visivo per migliorare la comprensione del testo. Gli studenti possono interagire con i personaggi del libro, visualizzare modelli 3D e accedere a contenuti multimediali supplementari.">Libro AR</div>
+        <div class="oggetto" style="top: 150px; left: 200px; background-color: #e74c3c;" data-info="Gli occhiali VR creano ambienti virtuali sicuri per studenti con ansia sociale, permettendo loro di praticare le interazioni sociali in un contesto controllato. Possono simulare situazioni di vita reale come presentazioni in classe o conversazioni con i coetanei, aiutando gli studenti a costruire fiducia gradualmente.">Occhiali VR</div>
+        <div class="oggetto" style="top: 250px; left: 100px; background-color: #2ecc71;" data-info="I tablet con app AR possono assistere gli studenti con difficoltà motorie, fornendo strumenti di comunicazione aumentativa e alternativa. Le app AR possono trasformare l'ambiente circostante in un'interfaccia interattiva, permettendo agli studenti di comunicare e apprendere attraverso il movimento degli occhi o gesti limitati.">Tablet AR</div>
+        <div class="oggetto" style="top: 100px; left: 300px; background-color: #f39c12;" data-info="I sensori di movimento AR possono aiutare gli studenti con disturbi dello spettro autistico a migliorare le loro capacità motorie e la consapevolezza spaziale. Attraverso giochi e attività AR, gli studenti possono praticare movimenti specifici e ricevere feedback in tempo reale.">Sensore AR</div>
+        <div class="oggetto" style="top: 300px; left: 250px; background-color: #9b59b6;" data-info="Le cuffie con cancellazione del rumore integrate con AR possono assistere gli studenti con problemi di elaborazione uditiva o ADHD. Possono filtrare i rumori di fondo e fornire istruzioni audio chiare, aiutando gli studenti a concentrarsi meglio sulle lezioni o sui compiti.">Cuffie AR</div>
+    </div>
+    <div id="info">
+        <p>Seleziona un oggetto per scoprire le sue applicazioni nell'educazione speciale.</p>
+    </div>
+    <p id="contatore">Interazioni: 0</p>
+    <p id="livello">Livello: 1</p>
+    <button id="quizButton">Inizia Quiz</button>
+    <div id="quiz" style="display: none;">
+        <h2>Quiz</h2>
+        <p id="domanda"></p>
+        <button id="risposta1"></button>
+        <button id="risposta2"></button>
+        <button id="risposta3"></button>
+        <p id="feedback"></p>
+    </div>
+
+    <script>
+        let interazioni = 0;
+        let livello = 1;
+        const oggetti = document.querySelectorAll('.oggetto');
+        const infoDiv = document.getElementById('info');
+        const contatoreP = document.getElementById('contatore');
+        const livelloP = document.getElementById('livello');
+        const quizDiv = document.getElementById('quiz');
+        const quizButton = document.getElementById('quizButton');
+        const domandaP = document.getElementById('domanda');
+        const feedbackP = document.getElementById('feedback');
+        const rispostaButtons = [
+            document.getElementById('risposta1'),
+            document.getElementById('risposta2'),
+            document.getElementById('risposta3')
+        ];
+
+        const quiz = [
+            {
+                domanda: "Quale strumento AR può aiutare gli studenti con difficoltà di lettura?",
+                risposte: ["Libro AR", "Occhiali VR", "Sensore AR"],
+                corretta: 0
+            },
+            {
+                domanda: "Quale dispositivo può assistere gli studenti con difficoltà motorie?",
+                risposte: ["Occhiali VR", "Tablet AR", "Cuffie AR"],
+                corretta: 1
+            },
+            {
+                domanda: "Quale strumento è utile per studenti con ansia sociale?",
+                risposte: ["Sensore AR", "Libro AR", "Occhiali VR"],
+                corretta: 2
+            }
+        ];
+
+        oggetti.forEach(oggetto => {
+            oggetto.addEventListener('click', () => {
+                infoDiv.innerHTML = `<h3>${oggetto.textContent}</h3><p>${oggetto.dataset.info}</p>`;
+                interazioni++;
+                contatoreP.textContent = `Interazioni: ${interazioni}`;
+                
+                oggetto.style.transform = 'scale(1.2) rotate(10deg)';
+                setTimeout(() => {
+                    oggetto.style.transform = 'scale(1) rotate(0deg)';
+                }, 300);
+            });
+        });
+
+        quizButton.addEventListener('click', mostraQuiz);
+
+        function mostraQuiz() {
+            const quizCorrente = quiz[Math.floor(Math.random() * quiz.length)];
+            domandaP.textContent = quizCorrente.domanda;
+            quizCorrente.risposte.forEach((risposta, index) => {
+                rispostaButtons[index].textContent = risposta;
+                rispostaButtons[index].className = ''; // Rimuove le classi precedenti
+                rispostaButtons[index].onclick = () => verificaRisposta(index, quizCorrente.corretta);
+            });
+            quizDiv.style.display = 'block';
+            quizButton.style.display = 'none';
+            feedbackP.textContent = '';
+        }
+
+        function verificaRisposta(indiceRisposta, indiceCorretta) {
+            const corretta = indiceRisposta === indiceCorretta;
+            
+            rispostaButtons.forEach((button, index) => {
+                if (index === indiceCorretta) {
+                    button.classList.add('corretta');
+                } else if (index === indiceRisposta && !corretta) {
+                    button.classList.add('sbagliata');
+                }
+                button.disabled = true;
+            });
+
+            if (corretta) {
+                livello++;
+                livelloP.textContent = `Livello: ${livello}`;
+                feedbackP.textContent = 'Corretto! Hai avanzato di livello.';
+            } else {
+                feedbackP.textContent = 'Sbagliato. La risposta corretta è evidenziata in verde.';
+            }
+
+            setTimeout(() => {
+                quizDiv.style.display = 'none';
+                quizButton.style.display = 'block';
+                rispostaButtons.forEach(button => {
+                    button.className = '';
+                    button.disabled = false;
+                });
+            }, 3000);
+        }
+
+        setInterval(() => {
+            oggetti.forEach(oggetto => {
+                const newTop = Math.random() * (500 - 100);
+                const newLeft = Math.random() * (window.innerWidth - 100);
+                oggetto.style.top = `${newTop}px`;
+                oggetto.style.left = `${newLeft}px`;
+            });
+        }, 5000);
+
+        function cambiaColoreScena() {
+            const colori = ['#e6f3ff', '#fff0f0', '#f0fff0', '#fff0ff', '#fffff0'];
+            const nuovoColore = colori[Math.floor(Math.random() * colori.length)];
+            document.getElementById('scena').style.backgroundColor = nuovoColore;
+        }
+
+        setInterval(cambiaColoreScena, 10000);
+    </script>
+
+
+</body></html>
